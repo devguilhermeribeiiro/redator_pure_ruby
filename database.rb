@@ -5,8 +5,8 @@ class Database
     begin
       @conn = PG.connect(
         dbname: 'redator_ruby_development',
-        user: 'guilherme',
-        password: 'guilherme:20032013',
+        user: 'your_user',
+        password: 'your_password',
         host: 'localhost',
         port: 5431
       )

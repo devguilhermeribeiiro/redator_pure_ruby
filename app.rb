@@ -3,12 +3,13 @@ require 'erb'
 require_relative 'redator'
 require_relative 'database'
 
-
 class App
 
   def call(env)
     request = Rack::Request.new(env)
+
     case request.path
+
     when '/'
       @posts = Redator.read
 
@@ -35,7 +36,7 @@ class App
         [200, {'Content-Type': 'text/html'}, [response_body]]
       end
     else
-      [400, {'Content-Type': 'application/json'}, ['{"error": "Not Found"}']]
+      [404, {'Content-Type': 'application/json'}, ['{"error": "Not Found"}']]
     end
   end
 end

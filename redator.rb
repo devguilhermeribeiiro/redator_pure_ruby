@@ -1,4 +1,4 @@
-require 'erb'
+require 'sqlite3'
 require_relative 'database'
 
 class Redator
@@ -7,35 +7,26 @@ class Redator
   def initialize(title, content)
     @title = title
     @content = content
+    @db = Database.new('redator.db')
   end
 
   def create
     begin
-      conn = Database.connection
-      conn.exec_params('
-      INSERT INTO artigos (title, content)
-      VALUES ($1, $2)', [@title, @content])
-    rescue => database_insertion_error
-      puts "Erro ao inserir os dados no banco: #{database_insertion_error.message}"
-    ensure
-      conn.close if conn
-
+      @db.insert_data(@title, @content)
+    rescue SQLite3::SQLException => e
+      puts "Erro ao inserir os dados no banco: #{e.message}"
     end
   end
 
   def self.read
+    db = Database.new('redator.db')
     begin
-      conn = Database.connection
-      query = conn.exec('SELECT * FROM artigos')
-      posts = query.map do |row|
-        new(row['title'], row['content'])
+      db.select_all_data.map do |row|
+        new(row['id'], row['title'], row['content'], row['created_at'])
       end
-      posts
-    rescue => database_connection_error
-      puts "Erro ao consultar banco de dados: #{database_connection_error.message}"
+    rescue SQLite3::SQLException => e
+      puts "Erro ao consultar banco de dados: #{e.message}"
       []
-    ensure
-      conn.close if conn
     end
   end
 end

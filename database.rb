@@ -1,30 +1,34 @@
-require 'pg'
+require 'sqlite3'
 
 class Database
-  def self.connect
-    begin
-      @conn = PG.connect(
-        dbname: 'redator',
-        user: 'ruby',
-        password: 'ruby:2024',
-        host: 'localhost',
-        port: 5432
-      )
-      @conn.exec('CREATE TABLE IF NOT EXISTS artigos
-        (
-        id SERIAL PRIMARY KEY,
-        title VARCHAR(255) NOT NULL,
-        content TEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )'
-      )
-      puts "Connected successfuly"
-    rescue PG::Error => exception
-    puts "Connection error: #{exception.message}"
-    end
+  attr_accessor :db_name
+
+  def initialize(db_name)
+    @db_name = db_name
   end
 
-  def self.connection
-    @conn
+  def create_db
+    @db = SQLite3::Database.new "#{@db_name}"
+  end
+
+  def create_table
+    @db.execute <<-SQL
+    CREATE TABLE IF NOT EXISTS articles (
+      id INTEGER PRIMARY KEY,
+      title VARCHAR(255) NOT NULL,
+      content TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+    SQL
+  end
+
+  def insert_data(title, content)
+    @db.execute('
+      INSERT INTO articles (title, content)
+      VALUES (?, ?)',[title, content]
+    )
+  end
+
+  def select_all_data
+    @db.execute('SELECT * FROM articles')
   end
 end

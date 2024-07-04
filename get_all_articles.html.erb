@@ -1,0 +1,26 @@
+<!-- show.html.erb -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Posts</title>
+</head>
+<body>
+  <% @posts.each do |post| %>
+    <div id="<%= "posts_#{posts.id}" %>">
+      <p>
+        <strong>Título:</strong>
+        <%= post.title %>
+      </p>
+      <p>
+        <strong>Conteúdo:</strong>
+        <%= post.content %>
+      </p>
+      <p>
+        <strong>Publicado em:</strong>
+        <%= post.created_at %>
+      </p>
+    </div>
+  <% end %>
+</body>
+</html>

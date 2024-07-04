@@ -4,11 +4,19 @@ class Database
   def self.connect
     begin
       @conn = PG.connect(
-        dbname: 'redator_ruby_development',
-        user: 'your_user',
-        password: 'your_password',
+        dbname: 'redator',
+        user: 'ruby',
+        password: 'ruby:2024',
         host: 'localhost',
-        port: 5431
+        port: 5432
+      )
+      @conn.exec('CREATE TABLE IF NOT EXISTS artigos
+        (
+        id SERIAL PRIMARY KEY,
+        title VARCHAR(255) NOT NULL,
+        content TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )'
       )
       puts "Connected successfuly"
     rescue PG::Error => exception
@@ -16,7 +24,7 @@ class Database
     end
   end
 
-  def self.conection
+  def self.connection
     @conn
   end
 end

@@ -1,0 +1,2 @@
+2024-07-03 15:51:57.429 -03 [8966] LOG:  redirecionando saída do log para processo coletor de log
+2024-07-03 15:51:57.429 -03 [8966] DICA:  Saída futura do log aparecerá no diretório "log".

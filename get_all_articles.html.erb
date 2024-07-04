@@ -1,4 +1,4 @@
-<!-- show.html.erb -->
+<!-- get_all_articles.html.erb -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -7,7 +7,7 @@
 </head>
 <body>
   <% @posts.each do |post| %>
-    <div id="<%= "posts_#{posts.id}" %>">
+    <div id="<%= "posts_#{post.id}" %>">
       <p>
         <strong>Título:</strong>
         <%= post.title %>

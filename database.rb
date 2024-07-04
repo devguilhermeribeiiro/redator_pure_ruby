@@ -1,14 +1,17 @@
 require 'sqlite3'
 
 class Database
-  attr_accessor :db_name
+  attr_accessor :db_name, :db
 
   def initialize(db_name)
     @db_name = db_name
+    create_db
+    create_table
   end
 
   def create_db
     @db = SQLite3::Database.new "#{@db_name}"
+    @db.results_as_hash = true
   end
 
   def create_table
@@ -24,7 +27,7 @@ class Database
   def insert_data(title, content)
     @db.execute('
       INSERT INTO articles (title, content)
-      VALUES (?, ?)',[title, content]
+      VALUES (?, ?)', [title, content]
     )
   end
 

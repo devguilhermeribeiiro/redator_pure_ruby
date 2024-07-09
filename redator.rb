@@ -24,7 +24,7 @@ class Redator
       db.select_all_data.map do |row|
         new(row['title'], row['content']).tap do |post|
           post.id = row['id']
-          post.created_at = row['created_at']
+          post.created_at = row['created_at'].strftime('%d-%m-%Y')
         end
       end
     rescue PG::Error => e

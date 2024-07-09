@@ -25,7 +25,7 @@ class Database
   def create_table
     @db.exec( <<-SQL
       CREATE TABLE IF NOT EXISTS articles (
-      id INTEGER PRIMARY KEY,
+      id SERIAL PRIMARY KEY,
       title VARCHAR(255) NOT NULL,
       content TEXT NOT NULL,
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
@@ -35,7 +35,7 @@ class Database
 
   def insert_data(title, content)
     @db.prepare('insert_article','
-      INSERT INTO articles (title, content) VALUES (?, ?)'
+      INSERT INTO articles (title, content) VALUES ($1, $2)'
     )
     @db.exec_prepared('insert_article', [title, content])
 

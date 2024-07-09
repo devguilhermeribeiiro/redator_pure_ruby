@@ -1,10 +1,10 @@
-require 'sqlite3'
+require 'pg'
 require_relative 'database'
 
 class Redator
   attr_accessor :title, :content, :id, :created_at
 
-  @db = Database.new('redator.db')
+  @db = Database.new('test_db', 'user_test', 'test123')
 
   def initialize(title, content)
     @title = title
@@ -14,7 +14,7 @@ class Redator
   def create
     begin
       self.class.db.insert_data(@title, @content)
-    rescue SQLite3::SQLException => e
+    rescue PG::Error => e
       puts "Erro ao inserir os dados no banco: #{e.message}"
     end
   end
@@ -27,9 +27,8 @@ class Redator
           post.created_at = row['created_at']
         end
       end
-    rescue SQLite3::SQLException => e
+    rescue PG::Error => e
       puts "Erro ao consultar banco de dados: #{e.message}"
-      []
     end
   end
 
@@ -37,4 +36,3 @@ class Redator
     @db
   end
 end
-

@@ -11,7 +11,7 @@ class App
     when '/'
       @posts = Redator.read
 
-      template = File.read('/views/get_all_articles.html.erb')
+      template = File.read('../views/get_all_articles.html.erb')
       renderer = ERB.new(template)
 
       response_body = renderer.result(binding)
@@ -27,7 +27,7 @@ class App
 
         [302, {'Location' => '/'}, []]
       else
-        template = File.read("/views/create_article.html.erb")
+        template = File.read("../views/create_article.html.erb")
         renderer = ERB.new(template)
 
         response_body = renderer.result(binding)

@@ -5,6 +5,14 @@ class Post
     @title = title
     @content = content
   end
+
+  def asdf
+    @title
+  end
+
+  def id
+    15
+  end
 end
 
 class Database
@@ -14,16 +22,23 @@ class Database
       {'id' => 2, 'title' => 'Second Post', 'content' => 'This is the second post', 'created_at' => '2023-01-02'}
     ]
   end
-end
 
-db = Database.new
-
-posts = db.select_all_data.map do |row|
-  Post.new(row['title'], row['content']).tap do |post|
-    post.id = row['id']
-    post.created_at = row['created_at']
+  def id
+    15
   end
 end
 
-# `posts` agora contém uma array de objetos `Post` completamente inicializados
-puts posts[0].id
+db = Post.new('asdf-', 'qert')
+
+puts db.asdf
+puts db.id
+
+# posts = db.select_all_data.map do |row|
+#   Post.new(row['title'], row['content']).tap do |post|
+#     post.id = row['id']
+#     post.created_at = row['created_at']
+#   end
+# end
+
+# # `posts` agora contém uma array de objetos `Post` completamente inicializados
+# puts posts[0].id

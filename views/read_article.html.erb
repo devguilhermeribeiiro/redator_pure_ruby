@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= @post.title %></title>
+</head>
+<body>
+  <div id="<%= "post_#{@post.id}" %>">
+    <p>
+      <strong><%= @post.title %></strong>
+    </p>
+    <p>
+      <strong>Conteúdo:</strong>
+      <%= @post.content %>
+    </p>
+    <p>
+      <strong>Publicado em:</strong>
+      <%= @post.created_at %>
+    </p>
+    <a href="/update/<%= @post.id %>">Editar</a>
+    <form action="/destroy/<%= @post.id %>" method="post" >
+      <input type="submit" value="Excluir">
+    </form>
+  </div>
+</body>
+</html>

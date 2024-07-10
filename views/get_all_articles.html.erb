@@ -3,25 +3,18 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Posts</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todos os Artigos</title>
 </head>
 <body>
-  <% @posts.each do |post| %>
-    <div id="<%= "posts_#{post.id}" %>">
-      <p>
-        <strong>Título:</strong>
-        <%= post.title %>
-      </p>
-      <p>
-        <strong>Conteúdo:</strong>
-        <%= post.content %>
-      </p>
-      <p>
-        <strong>Publicado em:</strong>
-        <%= post.created_at %>
-        <%= post.id %>
-      </p>
-    </div>
-  <% end %>
+  <h1>Todos os Artigos</h1>
+  <ul>
+    <% @posts.each do |post| %>
+      <li>
+        <a href="/read/<%= post.id %>"><%= post.title %></a>
+      </li>
+    <% end %>
+  </ul>
+  <a href="/create">Criar Novo Artigo</a>
 </body>
 </html>

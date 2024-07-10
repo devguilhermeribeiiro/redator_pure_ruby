@@ -35,13 +35,24 @@ class Database
 
   def insert_data(title, content)
     @db.prepare('insert_article','
-      INSERT INTO articles (title, content) VALUES ($1, $2)'
+      INSERT INTO articles (title, content) VALUES ($1, $2) RETURNING id'
     )
     @db.exec_prepared('insert_article', [title, content])
-
   end
 
   def select_all_data
     @db.exec('SELECT * FROM articles')
+  end
+
+  def select_article_by_id(id)
+    @db.exec_params('SELECT * FROM articles WHERE id = $1', [id])
+  end
+
+  def update_article_by_id(title, content, id)
+  @db.exec_params('UPDATE articles SET title = $1, content = $2 WHERE id = $3', [title, content, id])
+  end
+
+  def destroy_article_by_id(id)
+    @db.exec_params('DELETE FROM articles WHERE id = $1', [id])
   end
 end

@@ -12,7 +12,7 @@
 
   <nav class="navbar">
     <div class="container">
-      <button class="btn"><a href="/create">Criar Novo Artigo</a></button>
+      <button class=""><a href="/admin/create">Criar Novo Artigo</a></button>
     </div>
   </nav>
 
@@ -20,7 +20,7 @@
     <ul class="">
       <% @posts.each do |post| %>
         <li class="cmx">
-          <a href="/read/<%= post.id %>"><%= post.title %></a>
+          <a href="/admin/read/<%= post.id %>"><%= post.title %></a>
           <p>Publicado em: <%= post.created_at %></p>
         </li>
       <% end %>

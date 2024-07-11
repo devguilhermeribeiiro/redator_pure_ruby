@@ -3,11 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
+    <link rel="stylesheet" href="/css/style.css">
   <title> <%= @post.title %> </title>
 </head>
 <body>
-  <form action="/update/<%= @post.id %>" method="post" id="<%= "post_#{@post.id}" %>">
+
+  <nav class="navbar">
+    <div class="container">
+      <button><a href="/">Home</a></button>
+      <button class="btn"><a href="/create">Criar Novo Artigo</a></button>
+    </div>
+  </nav>
+
+  <form action="/admin/update/<%= @post.id %>" method="post"">
     <label for="title">Titulo:</label>
     <input type="text" name="title" id="title" value="<%= @post.title %>" required><br>
 

@@ -1,2 +1,2 @@
 system("bundle i")
-system("puma -C puma.rb")
+system("puma -C config/puma.rb")

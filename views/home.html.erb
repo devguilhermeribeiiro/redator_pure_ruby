@@ -5,25 +5,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="">
   <title>Redator</title>
 </head>
 <body>
 
   <nav class="navbar">
-    <div class="container">
+    <div class="navbar_container">
       <button><a href="/">Home</a></button>
     </div>
   </nav>
 
   <section class="container">
-    <ul class="">
-      <% @posts.each do |post| %>
-        <li class="cmx">
-          <a href="/read/<%= post.id %>"><%= post.title %></a>
-          <p>Publicado em: <%= post.created_at %></p>
-        </li>
-      <% end %>
-    </ul>
+    <% @posts.each do |post| %>
+      <a href="/read/<%= post.id %>">
+        <article class="article">
+          <div class="content">
+            <h2><%= post.title %></h2>
+            <p>Publicado em: <%= post.created_at %></p>
+          </div>
+        </article>
+      </a>
+    <% end %>
   </section>
 </body>
 </html>

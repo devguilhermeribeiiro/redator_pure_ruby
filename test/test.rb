@@ -1,44 +1,21 @@
-class Post
-  attr_accessor :id, :title, :content, :created_at
-
-  def initialize(title, content)
-    @title = title
-    @content = content
+class Test
+  attr_accessor :new_table
+  def initialize(new_table)
+    @new_table = new_table
+    @table_name = @new_table[:table_name]
+    @table_params = @new_table[:table_params]
   end
-
-  def asdf
-    @title
-  end
-
-  def id
-    15
-  end
-end
-
-class Database
-  def select_all_data
-    [
-      {'id' => 1, 'title' => 'First Post', 'content' => 'This is the first post', 'created_at' => '2023-01-01'},
-      {'id' => 2, 'title' => 'Second Post', 'content' => 'This is the second post', 'created_at' => '2023-01-02'}
-    ]
-  end
-
-  def id
-    15
+  def create_table
+    puts "CREATE TABLE IF NOT EXISTS #{@table_name} (
+    id SERIAL PRIMARY KEY,
+    #{@table_params.keys[0]} VARCHAR(255) NOT NULL,
+    #{@table_params.keys[1]} VARCHAR (255) NOT NULL UNIQUE,
+    #{@table_params.keys[2]} VARCHAR (255) NOT NULL,
+    )"
   end
 end
 
-db = Post.new('asdf-', 'qert')
+a = {table_name: 'users', table_params: {full_name: 'John Snow', email: 'john@snow', password: 'johntargeryan'}}
 
-puts db.asdf
-puts db.id
-
-# posts = db.select_all_data.map do |row|
-#   Post.new(row['title'], row['content']).tap do |post|
-#     post.id = row['id']
-#     post.created_at = row['created_at']
-#   end
-# end
-
-# # `posts` agora contém uma array de objetos `Post` completamente inicializados
-# puts posts[0].id
+test = Test.new(a)
+test.create_table

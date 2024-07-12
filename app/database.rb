@@ -22,7 +22,7 @@ class Database
     @db.type_map_for_results = PG::BasicTypeMapForResults.new(@db)
   end
 
-  def create_table
+  def create_table()
     @db.exec( <<-SQL
       CREATE TABLE IF NOT EXISTS articles (
       id SERIAL PRIMARY KEY,
@@ -31,6 +31,7 @@ class Database
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
       SQL
     )
+
   end
 
   def insert_data(title, content)

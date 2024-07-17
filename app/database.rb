@@ -59,8 +59,6 @@ class Database
         end
       end
     end
-
-
   end
 
   def insert_data(title, content)

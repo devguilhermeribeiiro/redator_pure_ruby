@@ -1,5 +1,11 @@
 require 'pg'
 
+
+# select * from admin;
+# verificar se exite admin já criado, se sim redirecionar pro login se não pra criação de conta
+
+
+
 class Database
   attr_accessor :db_name, :db
 
@@ -24,48 +30,35 @@ class Database
   end
 
   def create_table()
-    tables = ["articles", "admin"]
-
-    tables.each do |table_name|
-      query_result = @db.exec(<<-SQL
-        SELECT EXISTS (
-        SELECT FROM pg_tables
-        WHERE schemaname = 'public'
-        AND tablename = "#{table_name}")
-        SQL
-      )
-      tables_exists = query_result[0]['exists'] == 't'
-
-      if tables_exists
-        puts "Table alright exists"
-      else
-        if table_name == "articles"
-        @db.exec( <<-SQL
-          CREATE TABLE articles (
-          id VARCHAR(255) UNIQUE,
-          title VARCHAR(255) NOT NULL,
-          content TEXT NOT NULL,
-          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
-          SQL
-        )
-        elsif table_name == "admin"
-          @db.exec(<<-SQL
-            CREATE TABLE admin (
-            id VARCHAR(255) UNIQUE,
-            email VARCHAR(255) NOT NULL UNIQUE,
-            admin_password TEXT NOT NULL)
-            SQL
-          )
-        end
-      end
-    end
+    @db.exec( <<-SQL
+    CREATE TABLE IF NOT EXISTS articles (
+      id VARCHAR(255) UNIQUE,
+      title VARCHAR(255) NOT NULL,
+      content TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+      SQL
+    )
+    @db.exec(<<-SQL
+      CREATE TABLE IF NOT EXISTS admin (
+      id VARCHAR(255) UNIQUE,
+      email VARCHAR(255) NOT NULL UNIQUE,
+      admin_password TEXT NOT NULL)
+      SQL
+    )
   end
 
-  def insert_data(title, content)
+  def create_admin(id, email, admin_password)
+    @db.prepare('insert_admin','
+      INSERT INTO admin (id, email, admin_password) VALUES ($1, $2, $3)'
+    )
+    @db.exec_prepared('insert_admin', [id, email, admin_password])
+  end
+
+  def insert_data(id, title, content)
     @db.prepare('insert_article','
       INSERT INTO articles (id, title, content) VALUES ($1, $2, $3) RETURNING id'
     )
-    @db.exec_prepared('insert_article', [title, content])
+    @db.exec_prepared('insert_article', [id, title, content])
   end
 
   def select_all_data

@@ -1,10 +1,11 @@
 require 'pg'
 require_relative 'database'
+require 'securerandom'
 
-class Redator
+class Article
   attr_accessor :title, :content, :id, :created_at
 
-  @db = Database.new('test_db', 'user_test', 'test123')
+  @db = Article.new('test_db', 'user_test', 'test123')
 
   def initialize(title, content)
     @title = title
@@ -26,7 +27,8 @@ class Redator
 
   def create
     begin
-      result = self.class.db.insert_data(@title, @content)
+      id = SecureRandom.uuid
+      result = self.class.db.insert_data(id, @title, @content)
       if result.any?
         @id = result.first['id']
       end

@@ -5,7 +5,7 @@ require 'securerandom'
 class Article
   attr_accessor :title, :content, :id, :created_at
 
-  @db = Article.new('test_db', 'user_test', 'test123')
+  @db = Database.new('test_db', 'user_test', 'test123')
 
   def initialize(title, content)
     @title = title

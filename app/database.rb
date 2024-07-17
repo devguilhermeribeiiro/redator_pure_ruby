@@ -42,7 +42,7 @@ class Database
         if table_name == "articles"
         @db.exec( <<-SQL
           CREATE TABLE articles (
-          id SERIAL PRIMARY KEY,
+          id VARCHAR(255) UNIQUE,
           title VARCHAR(255) NOT NULL,
           content TEXT NOT NULL,
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
@@ -51,7 +51,7 @@ class Database
         elsif table_name == "admin"
           @db.exec(<<-SQL
             CREATE TABLE admin (
-            id SERIAL PRIMARY KEY,
+            id VARCHAR(255) UNIQUE,
             email VARCHAR(255) NOT NULL UNIQUE,
             admin_password TEXT NOT NULL)
             SQL
@@ -65,7 +65,7 @@ class Database
 
   def insert_data(title, content)
     @db.prepare('insert_article','
-      INSERT INTO articles (title, content) VALUES ($1, $2) RETURNING id'
+      INSERT INTO articles (id, title, content) VALUES ($1, $2, $3) RETURNING id'
     )
     @db.exec_prepared('insert_article', [title, content])
   end

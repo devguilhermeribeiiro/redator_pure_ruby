@@ -15,7 +15,7 @@ class Database
     @password = password
     db_connect
     create_table
-    create_admin
+    # create_admin
   end
 
   def db_connect
@@ -41,7 +41,7 @@ class Database
     @db.exec(<<-SQL
       CREATE TABLE IF NOT EXISTS admin (
       id VARCHAR(255) UNIQUE,
-      email VARCHAR(255) NOT NULL UNIQUE,
+      admin_email VARCHAR(255) NOT NULL UNIQUE,
       admin_password TEXT NOT NULL)
       SQL
     )
@@ -49,7 +49,7 @@ class Database
 
   def create_admin(id, email, admin_password)
     @db.prepare('insert_admin','
-      INSERT INTO admin (id, email, admin_password) VALUES ($1, $2, $3)'
+      INSERT INTO admin (id, admin_email, admin_password) VALUES ($1, $2, $3)'
     )
     @db.exec_prepared('insert_admin', [id, email, admin_password])
   end

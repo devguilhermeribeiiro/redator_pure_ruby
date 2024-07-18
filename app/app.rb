@@ -2,10 +2,9 @@ require 'rack'
 require 'erb'
 require_relative 'article'
 require_relative 'database'
+require_relative 'users'
 
 class App
-  ADM_USERNAME = '@oliverriver'
-  ADM_PASSWORD = '@oliverriver'
 
   def call(env)
     request = Rack::Request.new(env)
@@ -36,7 +35,7 @@ class App
         un_auth_response
       end
 
-    when '/admin/create'
+    when '/admin/create_article'
       if request.post?
         title = request.params['title']
         content = request.params['content']
@@ -44,13 +43,13 @@ class App
         article = Article.new(title, content)
         article.create
 
-        [302, {'Location' => "/admin/read/#{article.id}"}, []]
+        [302, {'Location' => "/admin/read_article/#{article.id}"}, []]
       else
         response_body = render_template('create_article', binding)
         [201, {'Content-Type' => 'text/html'}, [response_body]]
       end
 
-    when %r{^/admin/read/(\d+)$} #regex for /admin/read/:id
+    when %r{^/admin/read_article/(\d+)$} #regex for /admin/read/:id
       id = $1.to_i
       @post = Article.read(id)
 
@@ -61,7 +60,7 @@ class App
         [404, {'Content-Type' => 'aplication/json'}, ['{"error": "Not Found"}']]
       end
 
-    when %r{^/admin/update/(\d+)$} #regex for admin/update/:id
+    when %r{^/admin/update_article/(\d+)$} #regex for admin/update/:id
       id = $1.to_i
       @post = Article.read(id)
       if request.post?
@@ -75,10 +74,10 @@ class App
         [200, {'Content-Type' => 'text/html'}, [response_body]]
       end
 
-    when %r{^/admin/destroy/(\d+)$} #regex for /admin/destroy/:id
+    when %r{^/admin/destroy_article/(\d+)$} #regex for /admin/destroy/:id
       id = $1.to_i
       Article.destroy(id)
-      [303, {'Location' => '/'}, []]
+      [303, {'Location' => '/admin'}, []]
     else
       [404, {'Content-Type' => 'application/json'}, ['{"error": "Not Found"}']]
     end

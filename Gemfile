@@ -6,3 +6,4 @@ gem "rack"
 
 gem "puma"
 
+gem "bcrypt"

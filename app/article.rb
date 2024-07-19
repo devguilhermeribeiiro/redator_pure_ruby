@@ -9,7 +9,7 @@ class Article
 
   def initialize(title, content)
     @title = title
-   @content = content
+    @content = content
   end
 
   def self.all

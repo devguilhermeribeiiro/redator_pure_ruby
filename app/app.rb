@@ -2,7 +2,8 @@ require 'rack'
 require 'erb'
 require_relative 'article'
 require_relative 'database'
-require_relative 'users'
+require_relative 'customers'
+require_relative 'admin'
 
 class App
 
@@ -28,11 +29,22 @@ class App
       end
 
     when '/admin'
-      if is_auth?(request)
-        response_body = render_template('admin_dashboard', binding)
-        [200, {'Content-Type' => 'text/html'}, [response_body]]
+
+      if request.post?
+        email = request.params['email']
+        password = request.params['password']
+
+        login = Admin.login(email, password)
+
+        if login
+          response_body = render_template('admin_dashboard', binding)
+          [200, {'Content-Type' => 'text/html'}, [response_body]]
+        else
+          un_auth_response
+        end
       else
-        un_auth_response
+        response_body = render_template('admin_login', binding)
+        [201, {'Content-Type' => 'text/html'}, [response_body]]
       end
 
     when '/admin/create_article'
@@ -97,12 +109,7 @@ class App
     ERB.new(template).result(binding)
   end
 
-  def is_auth?(request)
-    auth = Rack::Auth::Basic::Request.new(request.env)
-    auth.provided? && auth.basic? && auth.credentials && auth.credentials == [App::ADM_USERNAME, App::ADM_PASSWORD]
-  end
-
   def un_auth_response
-    [401, {'Content-Type' => 'text/plain', 'WWW-Authenticate' => 'Basic reaml="Restricted Area"'}, ['Unauthorized']]
+    [401, {'Content-Type' => 'text/plain'}, ['Unauthorized']]
   end
 end

@@ -1,10 +1,6 @@
 require 'pg'
-
-
-# select * from admin;
-# verificar se exite admin já criado, se sim redirecionar pro login se não pra criação de conta
-
-
+require 'securerandom'
+require 'bcrypt'
 
 class Database
   attr_accessor :db_name, :db
@@ -48,10 +44,15 @@ class Database
   end
 
   def create_admin(id, email, admin_password)
+
     @db.prepare('insert_admin','
-      INSERT INTO admin (id, admin_email, admin_password) VALUES ($1, $2, $3)'
+      INSERT INTO admin (id, email, admin_password) VALUES ($1, $2, $3)'
     )
     @db.exec_prepared('insert_admin', [id, email, admin_password])
+  end
+
+  def select_admin(email)
+    @db.exec("SELECT admin_password FROM admin WHERE email = $1", [email])
   end
 
   def insert_data(id, title, content)

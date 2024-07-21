@@ -80,7 +80,7 @@ class App
         content = request.params['content']
 
         Article.update(title, content, id)
-        [302, {'Location' => "/read/#{id}"}, [] ]
+        [302, {'Location' => "/admin/read_article/#{id}"}, [] ]
       else
         response_body = render_template('update_article', binding)
         [200, {'Content-Type' => 'text/html'}, [response_body]]

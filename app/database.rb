@@ -55,11 +55,10 @@ class Database
     @db.exec("SELECT admin_password FROM admin WHERE email = $1", [email])
   end
 
-  def insert_data(id, title, content)
-    @db.prepare('insert_article','
-      INSERT INTO articles (id, title, content) VALUES ($1, $2, $3) RETURNING id'
+  def insert_data(title, content)
+    @db.exec_params('INSERT INTO articles (title, content)
+      VALUES ($1, $2) RETURNING id',[title, content]
     )
-    @db.exec_prepared('insert_article', [id, title, content])
   end
 
   def select_all_data

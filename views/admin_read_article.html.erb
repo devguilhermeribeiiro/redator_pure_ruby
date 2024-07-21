@@ -9,7 +9,7 @@
 <body>
   
   <nav class="navbar">
-    <div class="container">
+    <div class="navbar-container">
       <button><a href="/admin">Home</a></button>
       <button class="btn"><a href="/admin/create">Criar Novo Artigo</a></button>
     </div>
@@ -27,9 +27,9 @@
       <strong>Publicado em:</strong>
       <%= @post.created_at %>
     </p>
-    <form action="/admin/destroy/<%= @post.id %>" method="post" >
+    <form action="/admin/destroy_article/<%= @post.id %>" method="post" >
       <input type="submit" value="Excluir">
-      <button><a href="/admin/update/<%= @post.id %>">Editar</a></button>
+      <button><a href="/admin/update_article/<%= @post.id %>">Editar</a></button>
     </form>
   </section>
 </body>

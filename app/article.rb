@@ -27,8 +27,7 @@ class Article
 
   def create
     begin
-      id = SecureRandom.uuid
-      result = self.class.db.insert_data(id, @title, @content)
+      result = self.class.db.insert_data(@title, @content)
       if result.any?
         @id = result.first['id']
       end

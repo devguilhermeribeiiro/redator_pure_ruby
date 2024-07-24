@@ -29,4 +29,4 @@ class Admin
 
     def self.create
     end
-  end
+end

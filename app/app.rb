@@ -34,9 +34,9 @@ class App
         email = request.params['email']
         password = request.params['password']
 
-        login = Admin.login(email, password)
+        login_successful = Admin.exists(email, password)
 
-        if login
+        if login_successful
           response_body = render_template('admin_dashboard', binding)
           [200, {'Content-Type' => 'text/html'}, [response_body]]
         else

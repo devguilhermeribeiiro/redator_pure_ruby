@@ -15,18 +15,11 @@
   </nav>
 
   <section class="container" >
-    <p>
-      <strong><%= @post.title %></strong>
-    </p>
-    <p>
-      <strong>Conteúdo:</strong>
-      <%= @post.content %>
-    </p>
-    <p>
-      <strong>Publicado em:</strong>
-      <%= @post.created_at %>
-    </p>
+    <h1> <%= @post.title %> </h1>
 
+    <h4> <%= @post.created_at %> </h4>
+
+    <p> <%= @post.content %> </p>
   </section>
 </body>
 </html>

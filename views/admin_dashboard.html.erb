@@ -12,14 +12,14 @@
 
   <nav class="navbar">
     <div class="navbar-container">
-      <button><a href="/admin">Home</a></button>
-      <button class="btn"><a href="/admin/create_article">Criar Novo Artigo</a></button>
+      <button><a href="/admin/admin_dashboard">Home</a></button>
+      <button class="btn"><a href="/admin/admin_dashboard/create_article">Criar Novo Artigo</a></button>
     </div>
   </nav>
 
   <section class="container">
     <% @posts.each do |post| %>
-      <a href="/admin/read_article/<%= post.id %>">
+      <a href="/admin/admin_dashboard/read_article/<%= post.id %>">
         <article class="article">
           <div class="content">
             <h2><%= post.title %></h2>

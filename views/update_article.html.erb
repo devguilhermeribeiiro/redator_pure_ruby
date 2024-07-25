@@ -10,11 +10,11 @@
 
   <nav class="navbar">
     <div class="navbar-container">
-      <button><a href="/admin">Home</a></button>
+      <button><a href="/admin/admin_dashboard">Dashboard</a></button>
     </div>
   </nav>
 
-  <form action="/admin/update_article/<%= @post.id %>" method="post"">
+  <form action="/admin/admin_dashboard/update_article/<%= @post.id %>" method="post"">
     <label for="title">Titulo:</label>
     <input type="text" name="title" id="title" value="<%= @post.title %>" required><br>
 

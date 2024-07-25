@@ -11,13 +11,13 @@ module Admin_query
   end
 
   def create_admin(id, email, admin_password)
-    @db.exec_params('INSERT INTO admin (id, admin_email, admin_password)
+    @db.exec_params('INSERT INTO admin (id, email, admin_password)
       VALUES ($1, $2, $3)',[id, email, admin_password]
     )
   end
 
   def select_admin(email)
-    @db.exec_params("SELECT admin_password FROM admin WHERE admin_email = $1", [email])
+    @db.exec_params("SELECT admin_password FROM admin WHERE email = $1", [email])
   end
 end
 

@@ -37,8 +37,7 @@ class App
         login_successful = Admin.exists(email, password)
 
         if login_successful
-          response_body = render_template('admin_dashboard', binding)
-          [200, {'Content-Type' => 'text/html'}, [response_body]]
+          [302, {'Location' => "/admin/admin_dashboard"}, []]
         else
           un_auth_response
         end
@@ -46,8 +45,13 @@ class App
         response_body = render_template('admin_login', binding)
         [201, {'Content-Type' => 'text/html'}, [response_body]]
       end
+    when '/admin/admin_dashboard'
+      post = Article.all
+      @posts = post.sort_by(&:created_at).reverse
+      response_body = render_template('admin_dashboard', binding)
+      [200, {'Content-Type' => 'text/html'}, [response_body]]
 
-    when '/admin/create_article'
+    when '/admin/admin_dashboard/create_article'
       if request.post?
         title = request.params['title']
         content = request.params['content']
@@ -55,13 +59,13 @@ class App
         article = Article.new(title, content)
         article.create
 
-        [302, {'Location' => "/admin/read_article/#{article.id}"}, []]
+        [302, {'Location' => "/admin/admin_dashboard/read_article/#{article.id}"}, []]
       else
         response_body = render_template('create_article', binding)
         [201, {'Content-Type' => 'text/html'}, [response_body]]
       end
 
-    when %r{^/admin/read_article/(\d+)$} #regex for /admin/read/:id
+    when %r{^/admin/admin_dashboard/read_article/(\d+)$} #regex for /admin/admin_dashboard/read/:id
       id = $1.to_i
       @post = Article.read(id)
 
@@ -72,7 +76,7 @@ class App
         [404, {'Content-Type' => 'aplication/json'}, ['{"error": "Not Found"}']]
       end
 
-    when %r{^/admin/update_article/(\d+)$} #regex for admin/update/:id
+    when %r{^/admin/admin_dashboard/update_article/(\d+)$} #regex for admin/update/:id
       id = $1.to_i
       @post = Article.read(id)
       if request.post?
@@ -80,16 +84,16 @@ class App
         content = request.params['content']
 
         Article.update(title, content, id)
-        [302, {'Location' => "/admin/read_article/#{id}"}, [] ]
+        [302, {'Location' => "/admin/admin_dashboard/read_article/#{id}"}, [] ]
       else
         response_body = render_template('update_article', binding)
         [200, {'Content-Type' => 'text/html'}, [response_body]]
       end
 
-    when %r{^/admin/destroy_article/(\d+)$} #regex for /admin/destroy/:id
+    when %r{^/admin/admin_dashboard/destroy_article/(\d+)$} #regex for /admin/admin_dashboard/destroy/:id
       id = $1.to_i
       Article.destroy(id)
-      [303, {'Location' => '/admin'}, []]
+      [303, {'Location' => '/admin/admin_dashboard'}, []]
     else
       [404, {'Content-Type' => 'application/json'}, ['{"error": "Not Found"}']]
     end

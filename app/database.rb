@@ -21,6 +21,24 @@ module Admin_query
   end
 end
 
+module Customer_query
+  def exists_customer 
+    query = @db.exec('SELECT COUNT(*) FROM customers')
+    result_query = query[0]-['count'].to_i
+    exists = result_query.positive?
+  end
+
+  def create_admin(id, email, customer_password)
+  @db.exec_params('INSERT INTO customers (id, customer_email, customer_password)
+    VALUES ($1, $2, $3)', [id, email, customer_password]
+  )
+  end
+
+  def select_customer(email)
+  @db.exec_params('SELECT customer_password FROM customers WHERE email = $1', [email])
+  end
+end
+
 module Article_query
 
   def insert_data(title, content)
@@ -49,6 +67,7 @@ end
 class Database
 
   include Admin_query
+  include Customer_query
   include Article_query
 
   attr_accessor :db_name, :db
@@ -58,8 +77,6 @@ class Database
     @user = user
     @password = password
     db_connect
-    create_table
-    # create_admin
   end
 
   def db_connect
@@ -71,23 +88,5 @@ class Database
       port: 5432
     )
     @db.type_map_for_results = PG::BasicTypeMapForResults.new(@db)
-  end
-
-  def create_table()
-    @db.exec( <<-SQL
-    CREATE TABLE IF NOT EXISTS articles (
-      id VARCHAR(255) UNIQUE,
-      title VARCHAR(255) NOT NULL,
-      content TEXT NOT NULL,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
-      SQL
-    )
-    @db.exec(<<-SQL
-      CREATE TABLE IF NOT EXISTS admin (
-      id VARCHAR(255) UNIQUE,
-      admin_email VARCHAR(255) NOT NULL UNIQUE,
-      admin_password TEXT NOT NULL)
-      SQL
-    )
   end
 end

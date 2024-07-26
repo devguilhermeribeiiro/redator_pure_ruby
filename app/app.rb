@@ -12,7 +12,8 @@ class App
 
     case request.path
     when '/'
-      @posts = Article.all
+      post = Article.all
+      @posts = post.sort_by(&:created_at).reverse
 
       response_body = render_template('home', binding)
       [200, {'Content-Type' => 'text/html'}, [response_body]]

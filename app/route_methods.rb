@@ -4,7 +4,7 @@ module Methods
     @posts = post.sort_by(&:created_at).reverse
 
     response_body = render_template('home', binding)
-    [200, {'Content-Type' => 'text/html'}, [response_body]]
+    [200, { 'Content-Type' => 'text/html' }, [response_body]]
   end
 
   def read_article(id)
@@ -12,26 +12,26 @@ module Methods
 
     if @post
       response_body = render_template('read_article', binding)
-      [200, {'Content-Type' => 'text/html'}, [response_body]]
+      [200, { 'Content-Type' => 'text/html' }, [response_body]]
     else
-      [404, {'Content-Type' => 'application/json'}, ['{"error": "Not Found"}']]
+      [404, { 'Content-Type' => 'application/json' }, ['{ "error": "Not Found" }']]
     end
   end
 
   def admin_login
-    if request.post?
-      email = request.params['email']
-      password = request.params['password']
+    if @request.post?
+      email = @request.params['email']
+      password = @request.params['password']
       login_successful = Admin.exists(email, password)
-      
+
       if login_successful
-        [302, {'Location' => "/admin/admin_dashboard"}, []]
+        [302, { 'Location' => '/admin/admin_dashboard' }, []]
       else
         un_auth_response
       end
     else
       response_body = render_template('admin_login', binding)
-      [201, {'Content-Type' => 'text/html'}, [response_body]]
+      [201, { 'Content-Type' => 'text/html' }, [response_body]]
     end
   end
 
@@ -39,20 +39,20 @@ module Methods
     post = Article.all
     @posts = post.sort_by(&:created_at).reverse
     response_body = render_template('admin_dashboard', binding)
-    [200, {'Content-Type' => 'text/html'}, [response_body]]
+    [200, { 'Content-Type' => 'text/html' }, [response_body]]
   end
 
   def admin_create
-    if request.post?
-      title = request.params['title']
-      content = request.params['content']
+    if @request.post?
+      title = @request.params['title']
+      content = @request.params['content']
       article = Article.new(title, content)
       article.create
 
       [302, {'Location' => "/admin/admin_dashboard/read_article/#{article.id}"}, []]
     else
       response_body = render_template('create_article', binding)
-      [201, {'Content-Type' => 'text/html'}, [response_body]]
+      [201, { 'Content-Type' => 'text/html' }, [response_body]]
     end
   end
 
@@ -61,28 +61,28 @@ module Methods
 
     if @post
       response_body = render_template('admin_read_article', binding)
-      [200, {'Content-Type' => 'text/html'}, [response_body]]
+      [200, { 'Content-Type' => 'text/html' }, [response_body]]
     else
-      [404, {'Content-Type' => 'aplication/json'}, ['{"error": "Not Found"}']]
+      [404, { 'Content-Type' => 'aplication/json' }, ['{ "error": "Not Found" }']]
     end
   end
 
   def admin_update(id)
     @post = Article.read(id.to_i)
-    if request.post?
-      title = request.params['title']
-      content = request.params['content']
+    if @request.post?
+      title = @request.params['title']
+      content = @request.params['content']
 
       Article.update(title, content, id)
-      [302, {'Location' => "/admin/admin_dashboard/read_article/#{id}"}, [] ]
+      [302, { 'Location' => "/admin/admin_dashboard/read_article/#{id}" }, []]
     else
       response_body = render_template('update_article', binding)
-      [200, {'Content-Type' => 'text/html'}, [response_body]]
+      [200, { 'Content-Type' => 'text/html' }, [response_body]]
     end
   end
 
   def admin_destroy(id)
     Article.destroy(id.to_i)
-    [303, {'Location' => '/admin/admin_dashboard'}, []]
+    [303, { 'Location' => '/admin/admin_dashboard' }, []]
   end
 end

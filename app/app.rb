@@ -10,9 +10,9 @@ class App
   include Methods
 
   def call(env)
-    request = Rack::Request.new(env)
+    @request = Rack::Request.new(env)
 
-    case request.path
+    case @request.path
     when '/'
       home
     when %r{^/read/(\d+)$}
@@ -30,7 +30,7 @@ class App
     when %r{^/admin/admin_dashboard/destroy_article/(\d+)$}
       admin_destroy(::Regexp.last_match(1))
     else
-      [404, {'Content-Type' => 'application/json'}, ['{"error": "Not Found"}']]
+      [404, { 'Content-Type' => 'application/json' }, ['{"error": "Not Found"}']]
     end
   end
 
@@ -49,6 +49,6 @@ class App
   end
 
   def un_auth_response
-    [401, {'Content-Type' => 'text/plain'}, ['Unauthorized']]
+    [401, { 'Content-Type' => 'text/plain' }, ['Unauthorized']]
   end
 end

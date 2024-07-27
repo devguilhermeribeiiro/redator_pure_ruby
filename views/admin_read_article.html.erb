@@ -15,7 +15,7 @@
     </div>
   </nav>
 
-  <section class="container" >
+  <section class="container post" >
     <h1>
       <%= @post.title %>
     </h1>
@@ -23,12 +23,11 @@
     <h4>
       <%= @post.created_at %>
     </h4>
-   
+      
     <p>
       <%= @post.content %>
     </p>
-    
-    
+  
     <form action="/admin/admin_dashboard/destroy_article/<%= @post.id %>" method="post" >
       <input type="submit" value="Excluir">
       <button><a href="/admin/admin_dashboard/update_article/<%= @post.id %>">Editar</a></button>

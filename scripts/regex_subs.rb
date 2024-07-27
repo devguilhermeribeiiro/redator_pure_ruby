@@ -1,6 +1,10 @@
-file_path = 'app/app.rb'
+file_path = 'app/route_methods.rb'
 content = File.read(file_path)
 
-replaced_word = content.gsub('/admin/', '/admin/admin_dashboard/')
+# Regex para adicionar espaços ao início e ao final das chaves
+replaced_content = content.gsub(/(\{)([^{}]*)(\})/) do
+  "{ #{$2.strip} }"
+end
 
-File.open(file_path, 'w') { |file| file.write(replaced_word) }
+# Escreva o conteúdo atualizado de volta para o arquivo
+File.open(file_path, 'w') { |file| file.write(replaced_content) }

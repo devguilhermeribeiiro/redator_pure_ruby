@@ -7,7 +7,7 @@ module Admin_query
   def exists_admin
     query = @db.exec('SELECT COUNT(*) FROM admin')
     result_query = query[0]['count'].to_i
-    exists = result_query.positive?
+    result_query.positive?
   end
 
   def create_admin(id, email, admin_password)
@@ -49,7 +49,6 @@ end
 class Database
 
   include Admin_query
-  include Customer_query
   include Article_query
 
   attr_accessor :db_name, :db

@@ -1,9 +1,8 @@
 require 'rack'
 require 'erb'
-require_relative 'article'
 require_relative 'database'
-require_relative 'customers'
 require_relative 'admin'
+require_relative 'article'
 require_relative 'route_methods'
 
 class App

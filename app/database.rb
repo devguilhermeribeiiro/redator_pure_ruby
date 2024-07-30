@@ -21,24 +21,6 @@ module Admin_query
   end
 end
 
-module Customer_query
-  def exists_customer 
-    query = @db.exec('SELECT COUNT(*) FROM customers')
-    result_query = query[0]-['count'].to_i
-    exists = result_query.positive?
-  end
-
-  def create_admin(id, email, customer_password)
-  @db.exec_params('INSERT INTO customers (id, customer_email, customer_password)
-    VALUES ($1, $2, $3)', [id, email, customer_password]
-  )
-  end
-
-  def select_customer(email)
-  @db.exec_params('SELECT customer_password FROM customers WHERE email = $1', [email])
-  end
-end
-
 module Article_query
 
   def insert_data(title, content)

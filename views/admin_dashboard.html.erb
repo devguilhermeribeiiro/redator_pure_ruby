@@ -19,7 +19,7 @@
 
   <section class="container">
     <% @posts.each do |post| %>
-      <a href="/admin/admin_dashboard/read_article/<%= post.id %>">
+      <a href="/admin/admin_dashboard/read_article/<%= post.id %>" class="post-area">
         <article class="article">
           <div class="content">
             <h2><%= post.title %></h2>

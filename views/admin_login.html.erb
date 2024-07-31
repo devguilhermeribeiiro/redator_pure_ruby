@@ -7,14 +7,26 @@
   <title>Document</title>
 </head>
 <body>
-  <form action="/admin" method="post">
-    <label for="email"> Email </label>
-    <input type="email" name="email" id="email">
+  <div class="form-container">
 
-    <label for="password">Senha</label>
-    <input type="password" name="password" id="password">
+    <div class="title">
+      <h2>Login</h2>
+    </div>
+    <form action="/admin" method="post" class="form-content">
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input type="text" name="email" placeholder="Email..." class="input-form" required>
+      </div>
+      
+      <div class="form-field">
+        <label for="password">Senha</label>
+        <input type="password" name="password" placeholder="Senha..." class="input-form" required>
+      </div>
 
-    <button type="submit"> Login </button>
-  </form>
+      <div class="form-button">
+        <input type="submit" name="login" value="Entrar" class="login">
+      </div>
+    </form>
+  </div>
 </body>
 </html>

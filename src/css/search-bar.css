@@ -4,8 +4,8 @@
 }
 
 .search-input {
-  width: 200px;
-  padding: 8px;
+  width: 250px;
+  padding: 14px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px 0 0 4px;
@@ -13,9 +13,9 @@
 }
 
 .search-button {
-  padding: 8px;
+  padding: 10px;
+  color: aliceblue;
   background-color: #4849b7;
-  border: 2px solid #4849b7;
   border-radius: 0 4px 4px 0;
   cursor: pointer;
   outline: none;
@@ -25,7 +25,7 @@
 }
 
 .search-button:hover {
-  background-color: #0056b3;
+  background-color: #4881B7;
 }
 
 .search-icon {

@@ -20,25 +20,14 @@ a{
   margin-bottom: 50px;
   background-color: whitesmoke;
   padding: 35px;
-  .navbar-container {
-    width: 70%; 
-    margin: auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+}
 
-    .button {
-      border-radius: 10px;
-      border: none;
-      width: 110px;
-      background-color: #4849B7;
-      font-weight: 600;
-      color: white;
-      font-size: medium;
-      box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.336);
-      cursor: pointer;
-    }
-  }
+.navbar-container {
+  width: 70%; 
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .container {
@@ -50,6 +39,26 @@ a{
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.button {
+  border-radius: 10px;
+  border: none;
+  width: 160px;
+  font-weight: 600;
+  font-size: medium;
+  box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.336);
+  cursor: pointer;
+}
+
+.navbar-container .button {
+  background-color: #4849B7;
+  color: white;
+}
+
+.container .button {
+  background-color: white;
+  color: #4849B7;
 }
 
 .article {
@@ -70,6 +79,7 @@ a{
   width: 60%;
   font-size: x-large;
 }
+
 
 .content {
   margin: 18px;

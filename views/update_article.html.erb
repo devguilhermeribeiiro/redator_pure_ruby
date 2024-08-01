@@ -10,18 +10,22 @@
 
   <nav class="navbar">
     <div class="navbar-container">
-      <button><a href="/admin/admin_dashboard">Dashboard</a></button>
+      <button class="button"><a href="/admin/admin_dashboard">Dashboard</a></button>
+      <form action="/admin/admin_dashboard/destroy_article/<%= @post.id %>" method="post">
+        <button type="submit" class="button">
+          <p>Excluir</p>
+        </button>
+      </form>
     </div>
   </nav>
-
-  <form action="/admin/admin_dashboard/update_article/<%= @post.id %>" method="post"">
-    <label for="title">Titulo:</label>
-    <input type="text" name="title" id="title" value="<%= @post.title %>" required><br>
-
-    <label for="content">Conteúdo</label>
-    <textarea name="content" id="content" required> <%= @post.content %> </textarea>
-
-    <input class="" type="submit" value="Editar">
-  </form>
+  <section class="container">
+    <form action="/admin/admin_dashboard/update_article/<%= @post.id %>" method="post"">
+      <label for="title">Titulo:</label>
+      <input type="text" name="title" id="title" value="<%= @post.title %>" required><br>
+      <label for="content">Conteúdo</label>
+      <textarea name="content" id="content" required> <%= @post.content %> </textarea>
+      <input class="button" type="submit" value="Editar">
+    </form>
+  </section>
 </body>
 </html>

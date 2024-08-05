@@ -1,5 +1,4 @@
 @import 'login.css';
-@import 'search-bar.css';
 
 body {
   font-weight: 400;
@@ -19,7 +18,7 @@ a{
 .navbar {
   margin-bottom: 50px;
   background-color: whitesmoke;
-  padding: 35px;
+  padding: 15px;
 }
 
 .navbar-container {
@@ -28,6 +27,7 @@ a{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 
 .container {
@@ -41,25 +41,6 @@ a{
   align-items: center;
 }
 
-.button {
-  border-radius: 10px;
-  border: none;
-  width: 160px;
-  font-weight: 600;
-  font-size: medium;
-  box-shadow: 4px 4px 3px rgba(0, 0, 0, 0.336);
-  cursor: pointer;
-}
-
-.navbar-container .button {
-  background-color: #4849B7;
-  color: white;
-}
-
-.container .button {
-  background-color: white;
-  color: #4849B7;
-}
 
 .article {
   background-color: whitesmoke;

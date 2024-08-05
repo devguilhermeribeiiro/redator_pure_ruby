@@ -10,21 +10,8 @@
   
   <nav class="navbar">
     <div class="navbar-container">
-      <button class="button">
-        <a href="/admin/admin_dashboard">
-          <p>Dashboard</p>
-        </a>
-      </button>
-      
-      <button class="button">
-        <a href="/admin/admin_dashboard/update_article/<%= @post.id %>">Editar Artigo</a>
-      </button>
-      
-      <button class="button">
-        <a href="/admin/admin_dashboard/create_article">
-          <p>Criar Artigo</p>
-        </a>
-      </button>
+      <h1 class="brand"><a href="/admin/admin_dashboard">Dashboard</a></h1>
+      <h1 class="brand"><a href="/admin/admin_dashboard/update_article/<%= @post.id %>">Editar Artigo</a></h1>
     </div>
   </nav>
 

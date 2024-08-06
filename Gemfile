@@ -1,9 +1,11 @@
 source "https://rubygems.org"
 
-gem "pg"
+gem "dotenv", "~> 3.1"
 
-gem "rack"
+gem "bcrypt", "~> 3.1"
 
-gem "puma"
+gem "puma", "~> 6.4"
 
-gem "bcrypt"
+gem "rack", "~> 3.1"
+
+gem "pg", "~> 1.5"

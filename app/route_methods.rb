@@ -1,10 +1,14 @@
-module Methods 
+module Methods
   def home
     post = Article.all
-    @posts = post.sort_by(&:created_at).reverse
+      if !post.nil?
+        @posts = post.sort_by(&:created_at).reverse
 
-    response_body = render_template('home', binding)
-    [200, { 'Content-Type' => 'text/html' }, [response_body]]
+        response_body = render_template('home', binding)
+        [200, { 'Content-Type' => 'text/html' }, [response_body]]
+      else
+        [404, { 'Content-Type' => 'application/json' }, ['{ "error": "Not Found" }']]
+      end
   end
 
   def read_article(id)

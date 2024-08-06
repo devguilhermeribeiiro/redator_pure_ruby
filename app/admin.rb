@@ -3,17 +3,16 @@ require 'bcrypt'
 require 'securerandom'
 
 class Admin
-  @db = Database.new('test_db', 'user_test', 'test123')
-  
+
   def self.db
-    @db
+    @db = Database.new
   end
 
   def self.login(email, password)
     admin_password = db.select_admin(email)
     begin
       if admin_password.ntuples.positive?
-        stored_password = admin_password[0]['admin_password']
+        stored_password = admin_password[0]['password']
         hashed_password = BCrypt::Password.new(stored_password)
         hashed_password == password
       else
@@ -35,7 +34,7 @@ class Admin
         id = SecureRandom.uuid
         admin_password = BCrypt::Password.create(password)
         db.create_admin(id, email, admin_password)
-        login(email, password) 
+        login(email, password)
       end
     rescue PG::Error => e
       puts "Algo deu errado ao tentar criar o admin #{e.message}"

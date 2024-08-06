@@ -1,6 +1,8 @@
 require 'pg'
 require 'securerandom'
 require 'bcrypt'
+require 'dotenv/load'
+require_relative 'migrate'
 
 module Admin_query
 
@@ -10,14 +12,14 @@ module Admin_query
     result_query.positive?
   end
 
-  def create_admin(id, email, admin_password)
-    @db.exec_params('INSERT INTO admin (id, email, admin_password)
-      VALUES ($1, $2, $3)',[id, email, admin_password]
+  def create_admin(id, email, password)
+    @db.exec_params('INSERT INTO admin (id, email, password)
+      VALUES ($1, $2, $3)',[id, email, password]
     )
   end
 
   def select_admin(email)
-    @db.exec_params("SELECT admin_password FROM admin WHERE email = $1", [email])
+    @db.exec_params("SELECT password FROM admin WHERE email = $1", [email])
   end
 end
 
@@ -51,23 +53,15 @@ class Database
   include Admin_query
   include Article_query
 
-  attr_accessor :db_name, :db
+  attr_accessor :db
 
-  def initialize(db_name, user, password)
-    @db_name = db_name
-    @user = user
-    @password = password
+  def initialize
     db_connect
+    db_migrate
   end
 
   def db_connect
-    @db = PG.connect(
-      dbname: @db_name,
-      user: @user,
-      password: @password,
-      host: 'localhost',
-      port: 5432
-    )
+    @db = PG.connect(ENV['DATABASE_URL'])
     @db.type_map_for_results = PG::BasicTypeMapForResults.new(@db)
   end
 end

@@ -1,5 +1,5 @@
 def db_migrate
-  db.exec <<-SQL
+  @db.exec <<-SQL
     CREATE TABLE IF NOT EXISTS articles (
       id VARCHAR(255) UNIQUE,
       title VARCHAR(255) NOT NULL,
@@ -8,11 +8,11 @@ def db_migrate
     );
   SQL
 
-  db.exec <<-SQL
+  @db.exec <<-SQL
     CREATE TABLE IF NOT EXISTS admin (
       id VARCHAR(255) UNIQUE,
-      admin_email VARCHAR(255) NOT NULL UNIQUE,
-      admin_password TEXT NOT NULL
+      email VARCHAR(255) NOT NULL UNIQUE,
+      password TEXT NOT NULL
     );
   SQL
 end

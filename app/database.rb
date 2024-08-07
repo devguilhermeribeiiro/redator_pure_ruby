@@ -6,7 +6,8 @@ require 'bcrypt'
 require 'dotenv/load'
 require_relative 'migrate'
 
-module Admin_query
+# Tables admin queries
+module AdminQuery
   def exists_admin
     query = @db.exec('SELECT COUNT(*) FROM admin')
     result_query = query[0]['count'].to_i
@@ -23,7 +24,8 @@ module Admin_query
   end
 end
 
-module Article_query
+# Table article queries
+module ArticleQuery
   def insert_data(title, content)
     @db.exec_params('INSERT INTO articles (title, content)
       VALUES ($1, $2) RETURNING id', [title, content])
@@ -46,9 +48,10 @@ module Article_query
   end
 end
 
+# Connection database class
 class Database
-  include Admin_query
-  include Article_query
+  include AdminQuery
+  include ArticleQuery
 
   attr_accessor :db
 

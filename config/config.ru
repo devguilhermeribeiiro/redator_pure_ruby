@@ -1,6 +1,6 @@
 require 'rack'
-require_relative '../app/app.rb'
+require_relative '../app/app'
 
-use Rack::Static, :urls => ["/css", "/js", "/images"], :root => "src"
+use Rack::Static, urls: ['/css', '/js', '/images'], root: 'src'
 
 run App.new

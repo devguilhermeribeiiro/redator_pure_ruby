@@ -1,14 +1,14 @@
 module Methods
   def home
     post = Article.all
-      if !post.nil?
-        @posts = post.sort_by(&:created_at).reverse
+    if !post.nil?
+      @posts = post.sort_by(&:created_at).reverse
 
-        response_body = render_template('home', binding)
-        [200, { 'Content-Type' => 'text/html' }, [response_body]]
-      else
-        [404, { 'Content-Type' => 'application/json' }, ['{ "error": "Not Found" }']]
-      end
+      response_body = render_template('home', binding)
+      [200, { 'Content-Type' => 'text/html' }, [response_body]]
+    else
+      [404, { 'Content-Type' => 'application/json' }, ['{ "error": "Not Found" }']]
+    end
   end
 
   def read_article(id)
@@ -53,7 +53,7 @@ module Methods
       article = Article.new(title, content)
       article.create
 
-      [302, {'Location' => "/admin/admin_dashboard/read_article/#{article.id}"}, []]
+      [302, { 'Location' => "/admin/admin_dashboard/read_article/#{article.id}" }, []]
     else
       response_body = render_template('create_article', binding)
       [201, { 'Content-Type' => 'text/html' }, [response_body]]

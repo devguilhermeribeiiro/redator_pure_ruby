@@ -5,7 +5,6 @@ require 'dotenv/load'
 require_relative 'migrate'
 
 module Admin_query
-
   def exists_admin
     query = @db.exec('SELECT COUNT(*) FROM admin')
     result_query = query[0]['count'].to_i
@@ -14,21 +13,18 @@ module Admin_query
 
   def create_admin(id, email, password)
     @db.exec_params('INSERT INTO admin (id, email, password)
-      VALUES ($1, $2, $3)',[id, email, password]
-    )
+      VALUES ($1, $2, $3)', [id, email, password])
   end
 
   def select_admin(email)
-    @db.exec_params("SELECT password FROM admin WHERE email = $1", [email])
+    @db.exec_params('SELECT password FROM admin WHERE email = $1', [email])
   end
 end
 
 module Article_query
-
   def insert_data(title, content)
     @db.exec_params('INSERT INTO articles (title, content)
-      VALUES ($1, $2) RETURNING id',[title, content]
-    )
+      VALUES ($1, $2) RETURNING id', [title, content])
   end
 
   def select_all_data
@@ -49,7 +45,6 @@ module Article_query
 end
 
 class Database
-
   include Admin_query
   include Article_query
 

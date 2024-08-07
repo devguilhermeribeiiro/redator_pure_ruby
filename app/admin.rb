@@ -3,7 +3,6 @@ require 'bcrypt'
 require 'securerandom'
 
 class Admin
-
   def self.db
     @db = Database.new
   end

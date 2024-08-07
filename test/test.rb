@@ -15,7 +15,6 @@ require 'securerandom'
 
 # Test.new('Guilherme', '21').hello
 
-
 1.times do
   i = SecureRandom.uuid
   1.times do

@@ -3,7 +3,7 @@ content = File.read(file_path)
 
 # Regex para adicionar espaços ao início e ao final das chaves
 replaced_content = content.gsub(/(\{)([^{}]*)(\})/) do
-  "{ #{$2.strip} }"
+  "{ #{Regexp.last_match(2).strip} }"
 end
 
 # Escreva o conteúdo atualizado de volta para o arquivo

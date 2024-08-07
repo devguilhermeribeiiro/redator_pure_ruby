@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'database'
 require 'bcrypt'
 require 'securerandom'
@@ -27,14 +29,12 @@ class Admin
     exists_admin = db.exists_admin
     puts "Exists admin #{exists_admin}"
     begin
-      if exists_admin
-        login(email, password)
-      else
+      unless exists_admin
         id = SecureRandom.uuid
         admin_password = BCrypt::Password.create(password)
         db.create_admin(id, email, admin_password)
-        login(email, password)
       end
+      login(email, password)
     rescue PG::Error => e
       puts "Algo deu errado ao tentar criar o admin #{e.message}"
     end

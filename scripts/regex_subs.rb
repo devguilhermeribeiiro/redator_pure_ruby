@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 file_path = 'app/route_methods.rb'
 content = File.read(file_path)
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Methods
   def home
     post = Article.all

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 def db_migrate
   @db.exec <<-SQL
     CREATE TABLE IF NOT EXISTS articles (

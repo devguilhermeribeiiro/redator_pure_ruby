@@ -4,6 +4,7 @@ require_relative 'database'
 require 'bcrypt'
 require 'securerandom'
 
+# Login class
 class Admin
   def self.db
     @db = Database.new

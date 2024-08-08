@@ -24,17 +24,4 @@ class Admin
       false
     end
   end
-
-  def self.create(email, password)
-    id = SecureRandom.uuid
-    admin_password = BCrypt::Password.create(password)
-    db.create_admin(id, email, admin_password)
-  rescue PG::Error => e
-    puts "Algo deu errado ao tentar criar o admin #{e.message}"
-  end
-
-  def self.exists?
-    exists_admin = db.exists_admin
-    puts "Exists admin #{exists_admin}"
-  end
 end

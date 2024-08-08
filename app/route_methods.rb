@@ -29,17 +29,11 @@ module Methods
       email = @request.params['email']
       password = @request.params['password']
 
-      if Admin.exists?
-        if Admin.login(email, password)
-          @session['admin_logged_in'] = true
-          [302, { 'Location' => '/admin/admin_dashboard' }, []]
-        else
-          [401, { 'Content-Type' => 'text/plain' }, ['Invalid credentials']]
-        end
-      else
-        Admin.create(email, password)
+      if Admin.login(email, password)
         @session['admin_logged_in'] = true
         [302, { 'Location' => '/admin/admin_dashboard' }, []]
+      else
+        [401, { 'Content-Type' => 'text/plain' }, ['Invalid credentials']]
       end
     else
       response_body = render_template('admin_login', binding)

@@ -12,6 +12,7 @@ class App
 
   def call(env)
     @request = Rack::Request.new(env)
+    @session = @request.session
 
     case @request.path
     when '/'
@@ -21,15 +22,37 @@ class App
     when '/admin'
       admin_login
     when '/admin/admin_dashboard'
-      admin_dashboard
+      if authenticated?
+        admin_dashboard
+      else
+        [302, { 'Location' => '/admin' }, []]
+      end
     when '/admin/admin_dashboard/create_article'
-      admin_create
+      if authenticated?
+        admin_create
+      else
+        [302, { 'Location' => '/admin' }, []]
+      end
     when %r{^/admin/admin_dashboard/read_article/(\d+)$}
-      admin_read(::Regexp.last_match(1))
+      if authenticated?
+        admin_read(::Regexp.last_match(1))
+      else
+        [302, { 'Location' => '/admin' }, []]
+      end
     when %r{^/admin/admin_dashboard/update_article/(\d+)$}
-      admin_update(::Regexp.last_match(1))
+      if authenticated?
+        admin_update(::Regexp.last_match(1))
+      else
+        [302, { 'Location' => '/admin' }, []]
+      end
     when %r{^/admin/admin_dashboard/destroy_article/(\d+)$}
-      admin_destroy(::Regexp.last_match(1))
+      if authenticated?
+        admin_destroy(::Regexp.last_match(1))
+      else
+        [302, { 'Location' => '/admin' }, []]
+      end
+    when '/admin/logout'
+      admin_logout
     else
       [404, { 'Content-Type' => 'application/json' }, ['{"error": "Not Found"}']]
     end
@@ -49,7 +72,7 @@ class App
     ERB.new(template).result(binding)
   end
 
-  def un_auth_response
-    [401, { 'Content-Type' => 'text/plain' }, ['Unauthorized']]
+  def authenticated?
+    @session['admin_logged_in']
   end
 end

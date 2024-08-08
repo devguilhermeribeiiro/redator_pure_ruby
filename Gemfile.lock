@@ -17,6 +17,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.1.7)
+    rack-session (2.0.0)
+      rack (>= 3.0.0)
     rainbow (3.1.1)
     regexp_parser (2.9.2)
     rexml (3.3.4)
@@ -49,6 +51,7 @@ DEPENDENCIES
   pg (~> 1.5)
   puma (~> 6.4)
   rack (~> 3.1)
+  rack-session (~> 2.0)
   rubocop (~> 1.65)
 
 BUNDLED WITH

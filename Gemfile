@@ -15,3 +15,5 @@ gem 'pg', '~> 1.5'
 gem 'bigdecimal', '~> 3.1'
 
 gem 'rubocop', '~> 1.65'
+
+gem 'rack-session', '~> 2.0'

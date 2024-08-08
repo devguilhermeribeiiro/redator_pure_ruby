@@ -4,7 +4,6 @@ require 'pg'
 require 'securerandom'
 require 'bcrypt'
 require 'dotenv/load'
-require_relative 'migrate'
 
 # Tables admin queries
 module AdminQuery
@@ -57,7 +56,6 @@ class Database
 
   def initialize
     db_connect
-    db_migrate
   end
 
   def db_connect

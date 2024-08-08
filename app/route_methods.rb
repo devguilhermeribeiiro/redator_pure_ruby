@@ -28,17 +28,28 @@ module Methods
     if @request.post?
       email = @request.params['email']
       password = @request.params['password']
-      login_successful = Admin.exists(email, password)
 
-      if login_successful
-        [302, { 'Location' => '/admin/admin_dashboard' }, []]
+      if Admin.exists?
+        if Admin.login(email, password)
+          @session['admin_logged_in'] = true
+          [302, { 'Location' => '/admin/admin_dashboard' }, []]
+        else
+          [401, { 'Content-Type' => 'text/plain' }, ['Invalid credentials']]
+        end
       else
-        un_auth_response
+        Admin.create(email, password)
+        @session['admin_logged_in'] = true
+        [302, { 'Location' => '/admin/admin_dashboard' }, []]
       end
     else
       response_body = render_template('admin_login', binding)
       [201, { 'Content-Type' => 'text/html' }, [response_body]]
     end
+  end
+
+  def admin_logout
+    @session['admin_logged_in'] = nil
+    [302, { 'Location' => '/admin' }, []]
   end
 
   def admin_dashboard

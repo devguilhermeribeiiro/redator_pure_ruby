@@ -6,6 +6,7 @@ require_relative 'database'
 require_relative 'admin'
 require_relative 'article'
 require_relative 'route_methods'
+require_relative '../scripts/db_migrate/migrate.rb'
 
 class App
   include Methods
@@ -25,36 +26,36 @@ class App
       if authenticated?
         admin_dashboard
       else
-        [302, { 'Location' => '/admin' }, []]
+        [302, { 'location' => '/admin' }, []]
       end
     when '/admin/admin_dashboard/create_article'
       if authenticated?
         admin_create
       else
-        [302, { 'Location' => '/admin' }, []]
+        [302, { 'location' => '/admin' }, []]
       end
     when %r{^/admin/admin_dashboard/read_article/(\d+)$}
       if authenticated?
         admin_read(::Regexp.last_match(1))
       else
-        [302, { 'Location' => '/admin' }, []]
+        [302, { 'location' => '/admin' }, []]
       end
     when %r{^/admin/admin_dashboard/update_article/(\d+)$}
       if authenticated?
         admin_update(::Regexp.last_match(1))
       else
-        [302, { 'Location' => '/admin' }, []]
+        [302, { 'location' => '/admin' }, []]
       end
     when %r{^/admin/admin_dashboard/destroy_article/(\d+)$}
       if authenticated?
         admin_destroy(::Regexp.last_match(1))
       else
-        [302, { 'Location' => '/admin' }, []]
+        [302, { 'location' => '/admin' }, []]
       end
     when '/admin/logout'
       admin_logout
     else
-      [404, { 'Content-Type' => 'application/json' }, ['{"error": "Not Found"}']]
+      [404, { 'content-type' => 'application/json' }, ['{"error": "Not Found"}']]
     end
   end
 

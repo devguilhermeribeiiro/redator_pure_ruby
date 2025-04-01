@@ -8,7 +8,7 @@ class Migrate
   end
 
   def self.create_tables
-    db.exec <<-SQL
+    db.query <<-SQL
       CREATE TABLE IF NOT EXISTS articles (
         id SERIAL PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
@@ -17,7 +17,7 @@ class Migrate
       );
     SQL
 
-    db.exec <<-SQL
+    db.query <<-SQL
       CREATE TABLE IF NOT EXISTS admin (
         id UUID PRIMARY KEY,
         email VARCHAR(255) NOT NULL UNIQUE,

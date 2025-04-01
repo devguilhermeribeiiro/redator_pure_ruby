@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'securerandom'
+require 'dotenv/load'
+require 'bcrypt'
 require_relative '../../app/database'
 
 class Migrate
@@ -24,6 +27,8 @@ class Migrate
         password TEXT NOT NULL
       );
     SQL
+
+    db.create_admin(SecureRandom.uuid, ENV['admin_email'], BCrypt::Password.create(ENV['admin_password']))
   end
 end
 

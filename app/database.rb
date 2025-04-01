@@ -14,8 +14,12 @@ module AdminQuery
   end
 
   def create_admin(id, email, password)
-    @db.exec_params('INSERT INTO admin (id, email, password)
-      VALUES ($1, $2, $3)', [id, email, password])
+    if exists_admin
+      @db.exec_params('INSERT INTO admin (id, email, password)
+        VALUES ($1, $2, $3)', [id, email, password])
+    else
+      puts 'Admin exists'
+    end
   end
 
   def select_admin(email)

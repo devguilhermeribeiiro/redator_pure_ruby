@@ -62,4 +62,8 @@ class Database
     @db = PG.connect(ENV['DATABASE_URL'])
     @db.type_map_for_results = PG::BasicTypeMapForResults.new(@db)
   end
+
+  def query(sql)
+    @db.exec(sql)
+  end
 end

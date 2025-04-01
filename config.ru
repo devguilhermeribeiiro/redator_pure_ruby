@@ -3,7 +3,7 @@
 require 'rack'
 require 'rack/session/cookie'
 require 'dotenv/load'
-require_relative '../app/app'
+require_relative './app/app.rb'
 
 use Rack::Static, urls: ['/css', '/js', '/images'], root: 'src'
 use Rack::Session::Cookie, key: 'rack.session',

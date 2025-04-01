@@ -19,6 +19,8 @@ GEM
     rack (3.1.7)
     rack-session (2.0.0)
       rack (>= 3.0.0)
+    rackup (2.2.1)
+      rack (>= 3)
     rainbow (3.1.1)
     regexp_parser (2.9.2)
     rexml (3.3.4)
@@ -52,7 +54,11 @@ DEPENDENCIES
   puma (~> 6.4)
   rack (~> 3.1)
   rack-session (~> 2.0)
+  rackup (~> 2.2)
   rubocop (~> 1.65)
+
+RUBY VERSION
+   ruby 3.2.8p263
 
 BUNDLED WITH
    2.5.16

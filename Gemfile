@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-ruby '3.2.8'
+ruby '3.4.4'
 
 gem 'dotenv', '~> 3.1'
 
@@ -11,8 +11,6 @@ gem 'bcrypt', '~> 3.1'
 gem 'puma', '~> 6.4'
 
 gem 'rack', '~> 3.1'
-
-gem 'rackup', '~> 2.2'
 
 gem 'pg', '~> 1.5'
 

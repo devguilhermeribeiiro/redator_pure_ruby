@@ -6,6 +6,7 @@ GEM
     bcrypt (3.1.20)
     bigdecimal (3.2.2)
     dotenv (3.1.8)
+    eredor (0.2.1)
     json (2.13.2)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
@@ -53,14 +54,12 @@ DEPENDENCIES
   bcrypt (~> 3.1)
   bigdecimal (~> 3.1)
   dotenv (~> 3.1)
+  eredor (~> 0.2.1)
   pg (~> 1.5)
   puma (~> 6.4)
   rack (~> 3.1)
   rack-session (~> 2.0)
   rubocop (~> 1.65)
-
-RUBY VERSION
-   ruby 3.4.4p34
 
 BUNDLED WITH
    2.5.16

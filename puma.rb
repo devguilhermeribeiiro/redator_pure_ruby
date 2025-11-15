@@ -14,6 +14,6 @@ workers ENV.fetch('WEB_CONCURRENCY', 2)
 
 preload_app!
 
-rackup 'config/config.ru'
+rackup 'config.ru'
 
 plugin :tmp_restart

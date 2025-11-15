@@ -18,4 +18,4 @@ gem 'rubocop', '~> 1.65'
 
 gem 'rack-session', '~> 2.0'
 
-gem 'eredor', '~> 0.2.1'
+gem 'eredor', '~> 0.3.0'

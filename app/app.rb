@@ -1,21 +1,28 @@
 # frozen_string_literal: true
 
+Dir[File.join(__dir__, 'controllers', '*.rb')].each { |file| require file }
+Dir[File.join(__dir__, 'mappers', '*.rb')].each { |file| require file }
+
 require 'rack'
-require_relative 'config/database'
-require_relative 'controllers/*'
 require 'eredor'
 
 class App
+  def initialize
+    @post_mapper = PostMapper.new(Eredor::PostgresDatabase.connect)
+  end
+
   def call(env)
     request = Rack::Request.new(env)
     router = Eredor::Router.new(request)
 
-    router.get '/posts' do |params|
-      PostController.new(params).index
+    router.get '/' do
+      '<h1 style="font-family: Arial;">Hello World</h1>'
     end
 
-    router.get '/admin' do |params|
-      AdminController.new(params).login
+    router.get '/posts' do |params|
+      PostController.new(params, @post_mapper).index
     end
+
+    router.handle
   end
 end

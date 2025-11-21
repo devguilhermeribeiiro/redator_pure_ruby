@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <title><%= @post[:title] %></title>
+  </head>
+  <body>
+
+    <nav class="navbar">
+      <div class="navbar-container">
+        <h1 class="brand"><a href="/">Redator Dev</a></h1>
+      </div>
+    </nav>
+
+    <section class="container post">
+      <h1>
+        <%= @post[:title] %>
+      </h1>
+
+      <h4>
+        <%= @post[:created_at] %>
+      </h4>
+
+      <p style="white-space: pre-wrap;">
+        <%= @post[:description] %>
+      </p>
+    </section>
+  </body>
+</html>

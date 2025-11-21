@@ -1,0 +1,12 @@
+{
+  "table": "posts",
+  "varchar": [
+    "title"
+  ],
+  "text": [
+    "description"
+  ],
+  "timestamp": [
+    "timestamp"
+  ]
+}

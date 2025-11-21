@@ -17,7 +17,7 @@
 
     <section class="container ">
       <% @posts.each do |post| %>
-        <a href="/read/<%= post[:id] %>" class="post-area">
+        <a href="/posts/<%= post[:id] %>" class="post-area">
           <article class="article">
             <div class="content">
               <h1><%= post[:title] %></h1>

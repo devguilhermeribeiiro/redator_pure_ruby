@@ -23,6 +23,10 @@ class App
       PostController.new(params, @post_mapper).index
     end
 
+    router.get '/posts/:id' do |params|
+      PostController.new(params, @post_mapper).show
+    end
+
     router.handle
   end
 end

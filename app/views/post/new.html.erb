@@ -1,0 +1,30 @@
+<!-- create_article.html.erb -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>Criar Artigo</title>
+</head>
+<body>
+  
+  <nav class="navbar">
+    <div class="navbar-container">
+      <h1 class="brand"><a href="/admin/admin_dashboard">Dashboard</a></h1>
+    </div>
+  </nav>
+
+  <form  action="/admin/admin_dashboard/create_article" method="post">
+    <div class="container">
+      <label for="title">Titulo:</label>
+      <input type="text" name="title" id="title" required>
+      <br>
+      <label for="content">Conteúdo</label>
+      <textarea name="content" id="content" required></textarea>
+      <br>
+      <input type="submit" value="Publicar">
+    </div>
+  </form>
+</body>
+</html>

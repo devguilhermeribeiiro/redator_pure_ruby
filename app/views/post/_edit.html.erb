@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+  <title> <%= @post.title %> </title>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <h1 class="brand"><a href="/admin/admin_dashboard">Dashboard</a></h1>
+      <form action="/admin/admin_dashboard/destroy_article/<%= @post.id %>" method="post">
+        <input type="submit" value="Excluir">
+      </form>
+    </div>
+  </nav>
+  <section class="container">
+    <form action="/admin/admin_dashboard/update_article/<%= @post.id %>" method="post"">
+      <label for="title">Titulo:</label>
+      <input type="text" name="title" id="title" value="<%= @post.title %>" required><br>
+      <label for="content">Conteúdo</label>
+      <textarea name="content" id="content" required> <%= @post.content %> </textarea>
+      <input class="button" type="submit" value="Editar">
+    </form>
+  </section>
+</body>
+</html>
